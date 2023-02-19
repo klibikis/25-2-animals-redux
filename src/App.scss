@@ -1,0 +1,79 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+.wrapper{
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  padding: 30px 50px;
+}
+.addForm{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+}
+.input{
+  padding: 10px 15px;
+  border-radius: 5px 0 0 5px;
+  border: none;
+}
+.buttonAdd{
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 0 5px 5px 0;
+  background-color: rgb(126, 29, 195);
+  box-shadow: 0 0 10px rgb(126, 29, 195);
+  color: white;
+  transition: transform 0.2s ease-in;
+    &:hover{
+      transform: scale(1.1)
+  }
+}
+.label{
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.animalWrapper{
+  margin: 0 auto;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.singleAnimal{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px white;
+}
+.appWrapper{
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+.buttonAnimalDelete{
+  padding: 5px;
+  border: none;
+  background-color: rgb(126, 29, 195);
+  box-shadow: 0 0 10px rgb(126, 29, 195);
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease-in;
+    &:hover{
+      transform: scale(1.1)
+  }
+}
