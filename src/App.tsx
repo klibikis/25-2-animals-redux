@@ -1,25 +1,28 @@
 import { useState, useEffect} from 'react'
 import { useAppSelector, useAppDispatch } from './store/hooks'
 import './App.scss'
-import { addAnimal, deleteAnimal, saveAnimalsInLocalStorage, sortAnimals } from './store/counterSlice'
+import { useGetAnimalsQuery } from './store/apiSlice'
 
 function App() {
 
-  const dispatch = useAppDispatch()
   const [animalBreed, setAnimalBreed] = useState("")
-  
-  const animal = useAppSelector((store) => {
-    return store.animal.animals
-  })
+  const [animalName, setAnimalName] = useState("")
+
+  const { data: animalsData, error, isLoading } = useGetAnimalsQuery('animals')
+
   const handleAddAnimal = () => {
-    dispatch(addAnimal(animalBreed))
-    dispatch(saveAnimalsInLocalStorage());
-    setAnimalBreed('')
+
   }
-  useEffect(() => {
-    dispatch(sortAnimals())
-  }, [animal]);
+
+  if(isLoading){
+    return <h1>Loading...</h1>
+  }
+  if(!animalsData){
+    return <h1>Error</h1>
+  }
+  console.log(animalsData)
   
+
 
   return (
     <div className="appWrapper">
@@ -34,40 +37,56 @@ function App() {
           <input 
             required
             type='text' 
+            placeholder = "Animal name" 
+            className='input input--rounded-corners'
+            value = {animalName}
+            onChange={(e) => {
+              setAnimalName(e.target.value)
+            }}
+            />
+          <input 
+            required
+            type='text' 
             placeholder = "Animal breed" 
             className='input'
             value = {animalBreed}
             onChange={(e) => {
               setAnimalBreed(e.target.value)
             }}
-            >
-          </input>
+            />
           <button className='buttonAdd'>
             Add animal
           </button>
         </form>
       </div>
+      
       <div className='animalWrapper'>
-      {animal.map((animal) => {
-        return (
-          <div 
-            key = {Math.random()}
-            className = "singleAnimal"
-            >
-            <h1>{animal.breed}</h1>
-            <button
+        {animalsData.map((animal)=> {
+          return (
+            <div 
+              key = {Math.random()}
+              className = "singleAnimal"
+              >
+              <h1>{animal.name}</h1>
+              <h1>{animal.breed}</h1>
+              <button
               className='buttonAnimalDelete'
               onClick={() => {
-                dispatch(deleteAnimal(animal.breed))
-                dispatch(saveAnimalsInLocalStorage())
+                // dispatch(deleteAnimal(animal.breed))
+                // dispatch(saveAnimalsInLocalStorage())
               }}
-              >
-                ✘
+            >
+              ✘
             </button>
-          </div>
-        )
-      })}
+            </div>
+          )
+        })}
       </div>
+          
+
+
+      
+      
     </div>
     
   )

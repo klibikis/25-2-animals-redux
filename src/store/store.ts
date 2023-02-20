@@ -1,11 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit'
-import animalReducer from './counterSlice'
+import { setupListeners } from '@reduxjs/toolkit/dist/query'
+import { animalsApi } from './apiSlice'
 
 const store = configureStore({
     reducer: {
-        animal: animalReducer
+        [animalsApi.reducerPath]: animalsApi.reducer,
     },
+    middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(animalsApi.middleware),
 })
+
+setupListeners(store.dispatch)
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>

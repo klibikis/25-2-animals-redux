@@ -20,8 +20,10 @@
 }
 .input{
   padding: 10px 15px;
+  border: 1px solid rgb(126, 29, 195);
+}
+.input--rounded-corners{
   border-radius: 5px 0 0 5px;
-  border: none;
 }
 .buttonAdd{
   padding: 10px;
