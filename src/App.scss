@@ -2,7 +2,14 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+}
+h1, p{
+  padding: 0;
+  margin: 0;
+  font-size: 30px;
+}
+.breed--text{
+  font-size: 18px;
 }
 .wrapper{
   width: 70%;
@@ -47,17 +54,19 @@
 .animalWrapper{
   margin: 0 auto;
   display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
   justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 .singleAnimal{
   display: flex;
   flex-direction: column;
+  width: 27%;
   padding: 20px;
   border: 1px solid white;
   border-radius: 10px;
   box-shadow: 0 0 10px white;
+    text-align: center;
 }
 .appWrapper{
   width: 80%;
@@ -78,4 +87,9 @@
     &:hover{
       transform: scale(1.1)
   }
+}
+.animalImage{
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
 }

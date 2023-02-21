@@ -1,17 +1,20 @@
 import { useState, useEffect} from 'react'
 import { useAppSelector, useAppDispatch } from './store/hooks'
 import './App.scss'
-import { useGetAnimalsQuery } from './store/apiSlice'
+import { useGetAnimalsQuery, useCreateAnimalMutation, useDeleteAnimalMutation } from './store/apiSlice'
 
 function App() {
 
   const [animalBreed, setAnimalBreed] = useState("")
   const [animalName, setAnimalName] = useState("")
+  const [animalImageLink, setAnimalImageLink] = useState("")
 
-  const { data: animalsData, error, isLoading } = useGetAnimalsQuery('animals')
+  const [postAnimal] = useCreateAnimalMutation()
+  const [deleteAnimal] = useDeleteAnimalMutation()
+  const { data: animalsData, error: animalsError, isLoading } = useGetAnimalsQuery('animals')
 
   const handleAddAnimal = () => {
-
+    postAnimal({name: animalName, breed: animalBreed, image: animalImageLink})
   }
 
   if(isLoading){
@@ -20,10 +23,7 @@ function App() {
   if(!animalsData){
     return <h1>Error</h1>
   }
-  console.log(animalsData)
   
-
-
   return (
     <div className="appWrapper">
       <div className='wrapper'>
@@ -32,6 +32,9 @@ function App() {
           onSubmit={(e) => {
             e.preventDefault();
             handleAddAnimal()
+            setAnimalName("")
+            setAnimalBreed("")
+            setAnimalImageLink("")
           }}
         >
           <input 
@@ -53,7 +56,17 @@ function App() {
             onChange={(e) => {
               setAnimalBreed(e.target.value)
             }}
-            />
+          />
+          <input 
+            required
+            type='text' 
+            placeholder = "Image link" 
+            className='input'
+            value = {animalImageLink}
+            onChange={(e) => {
+              setAnimalImageLink(e.target.value)
+            }}
+          />
           <button className='buttonAdd'>
             Add animal
           </button>
@@ -67,13 +80,13 @@ function App() {
               key = {Math.random()}
               className = "singleAnimal"
               >
+              <img src = {animal.image} className = "animalImage"/>
               <h1>{animal.name}</h1>
-              <h1>{animal.breed}</h1>
+              <h1 className='breed--text'>BREED: {animal.breed.toUpperCase()}</h1>
               <button
               className='buttonAnimalDelete'
               onClick={() => {
-                // dispatch(deleteAnimal(animal.breed))
-                // dispatch(saveAnimalsInLocalStorage())
+                deleteAnimal(animal._id)
               }}
             >
               ✘
